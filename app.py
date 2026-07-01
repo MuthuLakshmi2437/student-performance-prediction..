@@ -7,7 +7,7 @@ model = pickle.load(open("model_pickle", "rb"))
 
 st.set_page_config(page_title="Student Predictor")
 
-st.title("🎓 Student Performance Predictor (No scaler file)")
+st.title("🎓 Student Performance Predictor ")
 
 # Inputs
 hours = st.number_input("Hours Studied")
