@@ -2,40 +2,22 @@ import streamlit as st
 import numpy as np
 import pickle
 
-# Load model
-with open("model_pickle", "rb") as f:
-    model = pickle.load(f)
+model = pickle.load(open("model_pickle", "rb"))
+scaler = pickle.load(open("scaler_pickle", "rb"))
 
-# Load scaler
-with open("model_pickle", "rb") as f:
-    scaler = pickle.load(f)
+st.title("Student Performance Predictor")
 
-st.set_page_config(page_title="Student Performance Predictor", layout="centered")
+hours = st.number_input("Hours Studied")
+score = st.number_input("Previous Score")
+extra = st.number_input("Extracurricular (0 or 1)")
+sleep = st.number_input("Sleep Hours")
+papers = st.number_input("Practice Papers")
 
-st.title("🎓 Student Performance Prediction App")
-st.write("Enter student details to predict performance index")
+if st.button("Predict"):
+    input_data = np.array([[hours, score, extra, sleep, papers]])
 
-# Inputs
-hours_studied = st.number_input("Hours Studied", min_value=0, max_value=24, value=5)
-
-previous_scores = st.number_input("Previous Scores", min_value=0, max_value=100, value=70)
-
-extracurricular = st.selectbox("Extracurricular Activities", ["No", "Yes"])
-
-sleep_hours = st.number_input("Sleep Hours", min_value=0, max_value=24, value=6)
-
-practice_papers = st.number_input("Sample Question Papers Practiced", min_value=0, max_value=20, value=2)
-
-# Convert categorical to numeric
-extra = 1 if extracurricular == "Yes" else 0
-
-# Prediction button
-if st.button("Predict Performance"):
-    input_data = np.array([[hours_studied, previous_scores, extra, sleep_hours, practice_papers]])
-
-    # scale input
     input_scaled = scaler.transform(input_data)
 
-    prediction = model.predict(input_scaled)
+    pred = model.predict(input_scaled)
 
-    st.success(f"🎯 Predicted Performance Index: {prediction[0]:.2f}")
+    st.success(pred[0])
