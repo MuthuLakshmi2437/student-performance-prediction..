@@ -25,8 +25,9 @@ extra_val = 1 if extra == "Yes" else 0
 
 # predict
 if st.button("Predict"):
-    input_data = np.array([[hours, score, extra_val, sleep, papers]])
+   
+input_data = np.array([[hours, score, extra_val, sleep, papers]])
 
-    prediction = model.predict(input_data)
+input_scaled = scaler.transform(input_data)
 
-    st.success(f"🎯 Predicted Score: {prediction[0]:.2f}")
+prediction = model.predict(input_scaled)
