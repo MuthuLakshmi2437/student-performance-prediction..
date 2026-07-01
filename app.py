@@ -3,7 +3,6 @@ import numpy as np
 import pickle
 
 model = pickle.load(open("model_pickle", "rb"))
-scaler = pickle.load(open("scaler_pickle", "rb"))
 
 st.title("Student Performance Predictor")
 
