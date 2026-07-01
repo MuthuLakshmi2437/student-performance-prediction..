@@ -7,7 +7,7 @@ with open("model_pickle", "rb") as f:
     model = pickle.load(f)
 
 # Load scaler
-with open("scaler_pickle", "rb") as f:
+with open("model_pickle", "rb") as f:
     scaler = pickle.load(f)
 
 st.set_page_config(page_title="Student Performance Predictor", layout="centered")
